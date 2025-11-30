@@ -1,0 +1,14 @@
+.moja{
+  display: none;
+  color:red;
+}
+.cmss1{
+  transform: rotate(180deg);
+     letter-spacing: 5px;
+
+}
+.cmss2{
+   letter-spacing: 5px;
+  transform: rotate(5deg);
+  color:red;
+}
