@@ -43,35 +43,56 @@
 //   })();
 
 
-(function() {
-  function hideGalleryContent() {
-    // ১. স্টোরের পার্মানেন্ট ডোমেইন এবং কাস্টম ডোমেইন দুটোই চেক করার নিরাপদ উপায়
-    var currentHost = window.location.hostname;
-    var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
+// (function() {
+//   function hideGalleryContent() {
+//     // ১. স্টোরের পার্মানেন্ট ডোমেইন এবং কাস্টম ডোমেইন দুটোই চেক করার নিরাপদ উপায়
+//     var currentHost = window.location.hostname;
+//     var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
     
-    // ২. পেজের পাথ চেক (/pages/gallery)
-    var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
+//     // ২. পেজের পাথ চেক (/pages/gallery)
+//     var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
 
-    // কন্ডিশন মিলে গেলে অ্যাকশন শুরু
-    if (isTargetStore && isGalleryPage) {
+//     // কন্ডিশন মিলে গেলে অ্যাকশন শুরু
+//     if (isTargetStore && isGalleryPage) {
       
-      // CSS এর মাধ্যমে ইনস্ট্যান্ট হাইড করার জন্য একটি স্টাইল ট্যাগ তৈরি করা হচ্ছে (সবচেয়ে ফাস্ট কাজ করে)
-      var style = document.createElement('style');
-      style.innerHTML = `
-        body, main, #MainContent, .main-content, #page-content { 
-          display: none !important; 
-        }
-      `;
-      document.head.appendChild(style);
+//       // CSS এর মাধ্যমে ইনস্ট্যান্ট হাইড করার জন্য একটি স্টাইল ট্যাগ তৈরি করা হচ্ছে (সবচেয়ে ফাস্ট কাজ করে)
+//       var style = document.createElement('style');
+//       style.innerHTML = `
+//         body, main, #MainContent, .main-content, #page-content { 
+//           display: none !important; 
+//         }
+//       `;
+//       document.head.appendChild(style);
       
-      console.log("Gallery page content blocked successfully by external script.");
+//       console.log("Gallery page content blocked successfully by external script.");
+//     }
+//   }
+
+//   // পেজ লোড হওয়ার সাথে সাথে যেন এক্সিকিউট হয়
+//   if (document.readyState === "loading") {
+//     document.addEventListener("DOMContentLoaded", hideGalleryContent);
+//   } else {
+//     hideGalleryContent();
+//   }
+// })();
+
+
+(function() {
+  // ১. স্টোরের ডোমেইন চেক করার নিরাপদ উপায়
+  var currentHost = window.location.hostname;
+  var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
+  
+  // ২. টার্গেট পেজের পাথ চেক (/pages/gallery)
+  var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
+
+  // কন্ডিশন মিলে গেলে সাথে সাথে রিডাইরেক্ট করবে
+  if (isTargetStore && isGalleryPage) {
+    // স্ক্রিন যেন সাদা হয়ে থাকে এবং পেজের কোনো এলিমেন্ট লোড না হয়
+    if (document.documentElement) {
+      document.documentElement.style.display = 'none';
     }
-  }
-
-  // পেজ লোড হওয়ার সাথে সাথে যেন এক্সিকিউট হয়
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", hideGalleryContent);
-  } else {
-    hideGalleryContent();
+    
+    // নতুন ইউআরএল-এ রিডাইরেক্ট
+    window.location.replace("https://polospetcloset.myshopify.com/pages/gallery123");
   }
 })();
