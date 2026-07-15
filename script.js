@@ -77,22 +77,22 @@
 // })();
 
 
-(function() {
-  // ১. স্টোরের ডোমেইন চেক করার নিরাপদ উপায়
-  var currentHost = window.location.hostname;
-  var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
+// (function() {
+//   // ১. স্টোরের ডোমেইন চেক করার নিরাপদ উপায়
+//   var currentHost = window.location.hostname;
+//   var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
   
-  // ২. টার্গেট পেজের পাথ চেক (/pages/gallery)
-  var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
+//   // ২. টার্গেট পেজের পাথ চেক (/pages/gallery)
+//   var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
 
-  // কন্ডিশন মিলে গেলে সাথে সাথে রিডাইরেক্ট করবে
-  if (isTargetStore && isGalleryPage) {
-    // স্ক্রিন যেন সাদা হয়ে থাকে এবং পেজের কোনো এলিমেন্ট লোড না হয়
-    if (document.documentElement) {
-      document.documentElement.style.display = 'none';
-    }
+//   // কন্ডিশন মিলে গেলে সাথে সাথে রিডাইরেক্ট করবে
+//   if (isTargetStore && isGalleryPage) {
+//     // স্ক্রিন যেন সাদা হয়ে থাকে এবং পেজের কোনো এলিমেন্ট লোড না হয়
+//     if (document.documentElement) {
+//       document.documentElement.style.display = 'none';
+//     }
     
-    // নতুন ইউআরএল-এ রিডাইরেক্ট
-    window.location.replace("https://polospetcloset.myshopify.com/pages/gallery123");
-  }
-})();
+//     // নতুন ইউআরএল-এ রিডাইরেক্ট
+//     window.location.replace("https://polospetcloset.myshopify.com/pages/gallery123");
+//   }
+// })();
