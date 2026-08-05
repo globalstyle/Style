@@ -1,109 +1,109 @@
-//  document.addEventListener('contextmenu', event => event.preventDefault());
-
-//   document.onkeydown = function(e) {
-//     // F12
-//     if (e.keyCode == 123) {
-//       return false;
-//     }
-//     // Ctrl+Shift+I/J/C
-//     if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) {
-//       return false;
-//     }
-//     // Ctrl+U
-//     if (e.ctrlKey && e.keyCode == 85) {
-//       return false;
-//     }
-//   }
-
-
-// // Disable right click
-//   document.addEventListener('contextmenu', e => e.preventDefault());
-
-//   // Block common devtools shortcuts
-//   document.addEventListener('keydown', function(e) {
-//     if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U')) {
-//       e.preventDefault();
-//       // optional: show a message
-//       alert('This action is disabled on this site.');
-//     }
-//   });
-
-//   // Very simple DevTools detection (timing / size based) — easy to bypass
-//   (function(){
-//     var threshold = 160;
-//     var check = function(){
-//       if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-//         // probable devtools open — take a soft action
-//         console.warn('DevTools detected (soft).');
-//         // e.g., show overlay (but don't block critical functionality)
-//         // document.body.innerHTML = '<h1>Access Restricted</h1>';
-//       }
-//     };
-//     setInterval(check, 1000);
-//   })();
-
-
-// (function() {
-//   function hideGalleryContent() {
-//     // ১. স্টোরের পার্মানেন্ট ডোমেইন এবং কাস্টম ডোমেইন দুটোই চেক করার নিরাপদ উপায়
-//     var currentHost = window.location.hostname;
-//     var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
+(function() {
+  // ==========================================
+  // CONFIGURATION VARIABLES (এখানে আপনার প্রয়োজনমতো পরিবর্তন করুন)
+  // ==========================================
+  var config = {
+    targetClass: "mazzardo",                                    // ১. কন্ট্রোল করার ক্লাস নেম
+    allowedDomains: ["polospetcloset.myshopify.com", "polospetcloset.com"], // ২. টার্গেট ডোমেইনসমূহ
+    targetPath: "/pages/gallery",                               // ৩. টার্গেট পেজের পাথ
+    redirectUrl: "https://polospetcloset.myshopify.com/pages/gallery123", // ৪. রিডাইরেক্ট করার ইউআরএল
+    devToolsThreshold: 160,                                     // ৫. ডিভাইস টুলস ডিটেকশন পিক্সেল সাইজ
     
-//     // ২. পেজের পাথ চেক (/pages/gallery)
-//     var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
+    // ৬. স্টাইল এবং ফন্ট সাইজ কনফিগারেশন (আপনার শেষ কোডের অংশ)
+    targetElementSelector: '.section-spacing.color-scheme.color-scheme--scheme-1.color-scheme--bg-622e9d022fe709b9009d21097c1b9701 .section-stack',
+    customStyles: {
+      display: 'flex',
+      fontSize: '80px',
+      transform: 'rotate(-180deg)'
+    }
+  };
 
-//     // কন্ডিশন মিলে গেলে অ্যাকশন শুরু
-//     if (isTargetStore && isGalleryPage) {
-      
-//       // CSS এর মাধ্যমে ইনস্ট্যান্ট হাইড করার জন্য একটি স্টাইল ট্যাগ তৈরি করা হচ্ছে (সবচেয়ে ফাস্ট কাজ করে)
-//       var style = document.createElement('style');
-//       style.innerHTML = `
-//         body, main, #MainContent, .main-content, #page-content { 
-//           display: none !important; 
-//         }
-//       `;
-//       document.head.appendChild(style);
-      
-//       console.log("Gallery page content blocked successfully by external script.");
-//     }
-//   }
+  // ==========================================
+  // CONDITIONAL CHECK (ক্লাস চেক করা)
+  // ==========================================
+  var hasTargetClass = document.querySelector('.' + config.targetClass) !== null;
+  if (!hasTargetClass) {
+    return; // ক্লাস না থাকলে কোড আর সামনে এগোবে না
+  }
 
-//   // পেজ লোড হওয়ার সাথে সাথে যেন এক্সিকিউট হয়
-//   if (document.readyState === "loading") {
-//     document.addEventListener("DOMContentLoaded", hideGalleryContent);
-//   } else {
-//     hideGalleryContent();
-//   }
-// })();
+  // ==========================================
+  // SCRIPT EXECUTION
+  // ==========================================
 
+  // ১. রাইট-ক্লিক এবং শর্টকাট ডিসেবল করা
+  document.addEventListener('contextmenu', event => event.preventDefault());
 
-// (function() {
-//   // ১. স্টোরের ডোমেইন চেক করার নিরাপদ উপায়
-//   var currentHost = window.location.hostname;
-//   var isTargetStore = currentHost.includes("polospetcloset.myshopify.com") || currentHost.includes("polospetcloset.com");
-  
-//   // ২. টার্গেট পেজের পাথ চেক (/pages/gallery)
-//   var isGalleryPage = window.location.pathname.replace(/\/$/, "") === "/pages/gallery";
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
+      e.preventDefault();
+      alert('This action is disabled on this site.');
+    }
+  });
 
-//   // কন্ডিশন মিলে গেলে সাথে সাথে রিডাইরেক্ট করবে
-//   if (isTargetStore && isGalleryPage) {
-//     // স্ক্রিন যেন সাদা হয়ে থাকে এবং পেজের কোনো এলিমেন্ট লোড না হয়
-//     if (document.documentElement) {
-//       document.documentElement.style.display = 'none';
-//     }
-    
-//     // নতুন ইউআরএল-এ রিডাইরেক্ট
-//     window.location.replace("https://polospetcloset.myshopify.com/pages/gallery123");
-//   }
-// })();
+  // ২. সিম্পল DevTools ডিটেকশন
+  (function(){
+    var check = function(){
+      if (window.outerWidth - window.innerWidth > config.devToolsThreshold || window.outerHeight - window.innerHeight > config.devToolsThreshold) {
+        console.warn('DevTools detected (soft).');
+      }
+    };
+    setInterval(check, 1000);
+  })();
 
+  // ডোমেইন এবং পাথ ম্যাচিং ফাংশন
+  function checkStoreAndPath() {
+    var currentHost = window.location.hostname;
+    var isTargetStore = config.allowedDomains.some(domain => currentHost.includes(domain));
+    var isTargetPage = window.location.pathname.replace(/\/$/, "") === config.targetPath;
+    return { isTargetStore, isTargetPage };
+  }
 
-// const element = document.querySelector(
-//   '.section-spacing.color-scheme.color-scheme--scheme-1.color-scheme--bg-622e9d022fe709b9009d21097c1b9701 .section-stack'
-// );
+  // ৩. গ্যালারি কন্টেন্ট হাইড করার লজিক
+  function hideGalleryContent() {
+    var match = checkStoreAndPath();
+    if (match.isTargetStore && match.isTargetPage) {
+      var style = document.createElement('style');
+      style.innerHTML = `
+        body, main, #MainContent, .main-content, #page-content { 
+          display: none !important; 
+        }
+      `;
+      document.head.appendChild(style);
+      console.log("Gallery page content blocked successfully by external script.");
+    }
+  }
 
-// if (element) {
-//   element.style.setProperty('display', 'flex');
-//   element.style.setProperty('font-size', '80px', 'important');
-//   element.style.setProperty('transform', 'rotate(-180deg)');
-// }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hideGalleryContent);
+  } else {
+    hideGalleryContent();
+  }
+
+  // ৪. রিডাইরেক্ট লজিক
+  (function() {
+    var match = checkStoreAndPath();
+    if (match.isTargetStore && match.isTargetPage) {
+      if (document.documentElement) {
+        document.documentElement.style.display = 'none';
+      }
+      window.location.replace(config.redirectUrl);
+    }
+  })();
+
+  // ৫. স্পেশাল এলিমেন্ট স্টাইলিং ও ফন্ট সাইজ অ্যাপ্লাই (আপনার শেষ কোড থেকে যুক্ত)
+  function applyCustomStyles() {
+    var element = document.querySelector(config.targetElementSelector);
+    if (element) {
+      element.style.setProperty('display', config.customStyles.display);
+      element.style.setProperty('font-size', config.customStyles.fontSize, 'important');
+      element.style.setProperty('transform', config.customStyles.transform);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyCustomStyles);
+  } else {
+    applyCustomStyles();
+  }
+
+})();
