@@ -4,14 +4,12 @@
   // ==========================================
   var targetClass = "mazzardo"; // এই ক্লাসটি পেজে থাকতে হবে
 
-  // কোন লিংক থেকে কোথায় রিডাইরেক্ট হবে তার কন্ট্রোল (অবজেক্ট অ্যারে)
+  // কোন পেজ (পাথ) থেকে কোথায় রিডাইরেক্ট হবে তার কন্ট্রোল
   var redirectRules = [
     {
-      path: "https://porscia.com/pages/all-made-in-italy",
+      path: "/pages/all-made-in-italy", // শুধু ডোমেইনের পরের অংশটুকু দিন
       redirectTo: "https://www.bored.com"
-    },
-    // ভবিষ্যতে আরও যোগ করতে চাইলে এভাবে বাড়াতে পারবেন:
-    // { path: "/pages/old-page", redirectTo: "https://example.com/new-page" }
+    }
   ];
 
 
@@ -38,18 +36,20 @@
 
 
   // ==========================================
-  // ৪. রিডাইরেক্ট এবং ডিসপ্লে নান লজিক (অ্যারে থেকে কন্ট্রোল)
+  // ৪. রিডাইরেক্ট এবং ডিসপ্লে নান লজিক
   // ==========================================
   var currentPath = window.location.pathname.replace(/\/$/, "");
 
   redirectRules.forEach(function(rule) {
-    if (currentPath === rule.path) {
-      // পেজ হাইড করার জন্য ইনস্ট্যান্ট স্টাইল
+    // সাব-পাথ চেক করার জন্য
+    if (currentPath === rule.path || currentPath + "/" === rule.path) {
+      
+      // পেজ কন্টেন্ট ডিসপ্লে নান করার জন্য
       var style = document.createElement('style');
-      style.innerHTML = '.section-spacing.color-scheme.color-scheme--scheme-1.color-scheme--bg-622e9d022fe709b9009d21097c1b9701 .section-stack, html { display: flex !important; transfrom:rotate(-180deg) }';
+      style.innerHTML = 'body { display: none !important; }';
       document.head.appendChild(style);
 
-      // রিডাইরেক্ট করা
+      // অন্য লিংকে রিডাইরেক্ট করা
       window.location.replace(rule.redirectTo);
     }
   });
