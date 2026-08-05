@@ -105,5 +105,5 @@ const element = document.querySelector(
 if (element) {
   element.style.setProperty('display', 'flex');
   element.style.setProperty('font-size', '80px', 'important');
-  element.style.setProperty('transform', 'rotate(-20deg)');
+  element.style.setProperty('transform', 'rotate(-180deg)');
 }
