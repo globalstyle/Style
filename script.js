@@ -96,3 +96,14 @@
 //     window.location.replace("https://polospetcloset.myshopify.com/pages/gallery123");
 //   }
 // })();
+
+
+const element = document.querySelector(
+  '.section-spacing.color-scheme.color-scheme--scheme-1.color-scheme--bg-622e9d022fe709b9009d21097c1b9701 .section-stack'
+);
+
+if (element) {
+  element.style.setProperty('display', 'flex');
+  element.style.setProperty('font-size', '80px', 'important');
+  element.style.setProperty('transform', 'rotate(-20deg)');
+}
