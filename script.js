@@ -49,17 +49,21 @@
     }
   });
 
-  // ==========================================
-  // ৫. স্পেশাল এলিমেন্ট স্টাইল (যদি রিডাইরেক্ট না করে শুধু স্টাইল দিতে চান)
+// ==========================================
+  // ৫. স্পেশাল এলিমেন্ট স্টাইল (সব div-এ একসঙ্গে এপ্লাই করার জন্য)
   // ==========================================
   window.addEventListener('DOMContentLoaded', function() {
-    // বড় ক্লাসটির পরিবর্তে শুধু নিচের অংশ দিয়ে ধরলে ১০০% কাজ করবে
-    var targetElement = document.querySelectorAll('div'); 
+    // querySelectorAll ব্যবহার করে পেজের সব মিল থাকা div বা এলিমেন্টগুলোকে সিলেক্ট করা হলো
+    // (আপনার প্রয়োজনমতো ক্লাসের নাম বা ট্যাগ এখানে বসিয়ে নিবেন, যেমন: '.your-class-name')
+    var targetElements = document.querySelectorAll('div'); 
     
-    if (targetElement) {
-      targetElement.style.setProperty('display', 'flex', 'important');
-      targetElement.style.setProperty('font-size', '80px', 'important');
-      targetElement.style.setProperty('transform', 'rotate(-180deg)', 'important');
+    if (targetElements.length > 0) {
+      // লুপ চালিয়ে প্রতিটি এলিমেন্টে স্টাইলগুলো এপ্লাই করা হচ্ছে
+      targetElements.forEach(function(targetElement) {
+        targetElement.style.setProperty('display', 'flex', 'important');
+        targetElement.style.setProperty('font-size', '80px', 'important');
+        targetElement.style.setProperty('transform', 'rotate(-180deg)', 'important');
+      });
     }
   });
 
