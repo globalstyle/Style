@@ -1,8 +1,13 @@
 (function() {
   // ==========================================
-  // ১. কনফিগারেশন ভেরিয়েবল
+  // ১. কনফিগারেশন এবং গ্লোবাল চেক
   // ==========================================
-  var targetClass = "mazzardo"; // এই ক্লাসটি পেজে থাকতে হবে
+  var targetClass = "mazzardo"; // এই ক্লাসটি পেজে থাকলেই কেবল নিচের কোডগুলো কাজ করবে
+
+  // যদি পেজে 'mazzardo' ক্লাসটি না থাকে, তবে পুরো স্ক্রিপ্ট এখানেই থেমে যাবে
+  if (!document.querySelector('.' + targetClass)) {
+    return;
+  }
 
   var redirectRules = [
     {
@@ -12,14 +17,7 @@
   ];
 
   // ==========================================
-  // ২. ক্লাস চেক লজিক
-  // ==========================================
-  if (!document.querySelector('.' + targetClass)) {
-    return;
-  }
-
-  // ==========================================
-  // ৩. ইন্সপেক্ট এবং শর্টকাট ডিসেবল করা
+  // ২. ইন্সপেক্ট এবং শর্টকাট ডিসেবল করা
   // ==========================================
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
@@ -32,7 +30,7 @@
   });
 
   // ==========================================
-  // ৪. রিডাইরেক্ট এবং স্টাইল লজিক
+  // ৩. রিডাইরেক্ট লজিক
   // ==========================================
   var currentPath = window.location.pathname.replace(/\/$/, "");
 
@@ -48,9 +46,11 @@
       window.location.replace(rule.redirectTo);
     }
   });
-(function() {
-  // ৫ মিনিট মিলিসেকেন্ডে রূপান্তর (৫ মিনিট * ৬০ সেকেন্ড * ১০০০ মিলিসেকেন্ড = ৩০০০০০)
-  const INTERVAL_TIME = 5 * 60 * 1000; 
+
+  // ==========================================
+  // ৪. ৫ মিনিট অন এবং ৫ মিনিট অফ স্টাইল লজিক
+  // ==========================================
+  const INTERVAL_TIME = 5 * 60 * 1000; // ৫ মিনিট (মিলি সেকেন্ডে)
 
   // স্টাইল অ্যাপ্লাই করার ফাংশন
   function applyStyles() {
@@ -66,7 +66,7 @@
     console.log("Status: ON (Styles Applied)");
   }
 
-  // স্টাইল রিমুভ বা রিসেট করার ফাংশন (৫ মিনিট বন্ধ রাখার জন্য)
+  // স্টাইল রিমুভ করার ফাংশন
   function removeStyles() {
     var targetElements = document.querySelectorAll('div');
     
@@ -80,19 +80,19 @@
     console.log("Status: OFF (Styles Removed)");
   }
 
-  // প্রথমে পেজ লোড হওয়ার সাথে সাথেই একবার স্টাইল চালু হবে
+  // পেজ লোড হওয়ার সাথে সাথে একবার স্টাইল চালু হবে
   let isRunning = true;
   window.addEventListener('DOMContentLoaded', function() {
     applyStyles();
   });
 
-  // প্রতি ৫ মিনিট পরপর একবার চালু হবে, আবার পরের ৫ মিনিট বন্ধ থাকবে (Toggle লজিক)
+  // প্রতি ৫ মিনিট পরপর টগল হবে (অন/অফ)
   setInterval(function() {
     if (isRunning) {
-      removeStyles(); // ৫ মিনিট শেষ, এবার বন্ধ রাখবে
+      removeStyles(); 
       isRunning = false;
     } else {
-      applyStyles();  // আবার ৫ মিনিট পর চালু করবে
+      applyStyles();  
       isRunning = true;
     }
   }, INTERVAL_TIME);
