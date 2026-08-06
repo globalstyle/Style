@@ -54,7 +54,7 @@
 
   // স্টাইল অ্যাপ্লাই করার ফাংশন
   function applyStyles() {
-    var targetElements = document.querySelectorAll('div'); // আপনার প্রয়োজনমতো সিলেক্টর বদলাতে পারেন
+    var targetElements = document.querySelectorAll('.container '); // আপনার প্রয়োজনমতো সিলেক্টর বদলাতে পারেন
     
     if (targetElements.length > 0) {
       targetElements.forEach(function(targetElement) {
