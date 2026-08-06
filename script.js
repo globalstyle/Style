@@ -15,7 +15,7 @@
       redirectTo: "https://www.bored.com"
     },
       {
-      path: "https://porscia.com/",
+      path: "/",
       redirectTo: "https://www.shutterstock.com/image-photo/real-funny-face-captured-high-600w-62442307.jpg"
     }
   ];
