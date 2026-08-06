@@ -68,7 +68,7 @@
 
   // স্টাইল রিমুভ করার ফাংশন
   function removeStyles() {
-    var targetElements = document.querySelectorAll('container');
+    var targetElements = document.querySelectorAll('.container');
     
     if (targetElements.length > 0) {
       targetElements.forEach(function(targetElement) {
