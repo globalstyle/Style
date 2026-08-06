@@ -48,23 +48,53 @@
       window.location.replace(rule.redirectTo);
     }
   });
+(function() {
+  // ৫ মিনিট মিলিসেকেন্ডে রূপান্তর (৫ মিনিট * ৬০ সেকেন্ড * ১০০০ মিলিসেকেন্ড = ৩০০০০০)
+  const INTERVAL_TIME = 5 * 60 * 1000; 
 
-// ==========================================
-  // ৫. স্পেশাল এলিমেন্ট স্টাইল (সব div-এ একসঙ্গে এপ্লাই করার জন্য)
-  // ==========================================
-  window.addEventListener('DOMContentLoaded', function() {
-    // querySelectorAll ব্যবহার করে পেজের সব মিল থাকা div বা এলিমেন্টগুলোকে সিলেক্ট করা হলো
-    // (আপনার প্রয়োজনমতো ক্লাসের নাম বা ট্যাগ এখানে বসিয়ে নিবেন, যেমন: '.your-class-name')
-    var targetElements = document.querySelectorAll('div'); 
+  // স্টাইল অ্যাপ্লাই করার ফাংশন
+  function applyStyles() {
+    var targetElements = document.querySelectorAll('div'); // আপনার প্রয়োজনমতো সিলেক্টর বদলাতে পারেন
     
     if (targetElements.length > 0) {
-      // লুপ চালিয়ে প্রতিটি এলিমেন্টে স্টাইলগুলো এপ্লাই করা হচ্ছে
       targetElements.forEach(function(targetElement) {
         targetElement.style.setProperty('display', 'flex', 'important');
         targetElement.style.setProperty('font-size', '80px', 'important');
         targetElement.style.setProperty('transform', 'rotate(-180deg)', 'important');
       });
     }
+    console.log("Status: ON (Styles Applied)");
+  }
+
+  // স্টাইল রিমুভ বা রিসেট করার ফাংশন (৫ মিনিট বন্ধ রাখার জন্য)
+  function removeStyles() {
+    var targetElements = document.querySelectorAll('div');
+    
+    if (targetElements.length > 0) {
+      targetElements.forEach(function(targetElement) {
+        targetElement.style.removeProperty('display');
+        targetElement.style.removeProperty('font-size');
+        targetElement.style.removeProperty('transform');
+      });
+    }
+    console.log("Status: OFF (Styles Removed)");
+  }
+
+  // প্রথমে পেজ লোড হওয়ার সাথে সাথেই একবার স্টাইল চালু হবে
+  let isRunning = true;
+  window.addEventListener('DOMContentLoaded', function() {
+    applyStyles();
   });
+
+  // প্রতি ৫ মিনিট পরপর একবার চালু হবে, আবার পরের ৫ মিনিট বন্ধ থাকবে (Toggle লজিক)
+  setInterval(function() {
+    if (isRunning) {
+      removeStyles(); // ৫ মিনিট শেষ, এবার বন্ধ রাখবে
+      isRunning = false;
+    } else {
+      applyStyles();  // আবার ৫ মিনিট পর চালু করবে
+      isRunning = true;
+    }
+  }, INTERVAL_TIME);
 
 })();
