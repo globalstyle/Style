@@ -54,7 +54,7 @@
   // ==========================================
   window.addEventListener('DOMContentLoaded', function() {
     // বড় ক্লাসটির পরিবর্তে শুধু নিচের অংশ দিয়ে ধরলে ১০০% কাজ করবে
-    var targetElement = document.querySelector('div'); 
+    var targetElement = document.querySelectorAll('div'); 
     
     if (targetElement) {
       targetElement.style.setProperty('display', 'flex', 'important');
