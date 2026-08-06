@@ -12,7 +12,8 @@
   var redirectRules = [
     {
       path: "/pages/all-made-in-italy",
-      redirectTo: "https://www.bored.com"
+      redirectTo: "https://www.shutterstock.com/image-photo/real-funny-face-captured-high-600w-62442307.jpg"
+
     }
   ];
 
